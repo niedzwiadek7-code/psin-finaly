@@ -1,0 +1,34 @@
+body {
+    --main-color: #ff7f50;
+}
+
+.back-to-index {
+    background-color: var(--main-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+.confirm{
+    background-color: red;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.confirm-delete {
+    padding: 5px 5px 5px 15px;
+    font-size: 1.1em;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: lightcoral;
+}

@@ -1,0 +1,89 @@
+h3 {
+    color: #ff7f50;
+}
+
+h3:first-letter {
+    font-size: 1.5em;
+}
+
+form {
+    padding: 0 30px;
+    width: min(650px, calc(100% - 60px));
+    --main-color: #ff7f50;
+    --lightly-main-color: #FFA584;
+    --input-border-color: gray;
+    --secondary-color: lightgray;
+}
+
+fieldset {
+    border: 2px solid var(--main-color);
+    border-radius: 5px;
+    margin: 15px 0;
+}
+
+input.input, input.date {
+    padding: 5px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 3px;
+    outline: none;
+}
+
+input.input:focus, input.date:focus {
+    -webkit-box-shadow: 0 0 7px 0 var(--main-color);
+    -moz-box-shadow: 0 0 7px 0 var(--main-color);
+    box-shadow: 0 0 7px 0 var(--main-color);
+}
+
+input[type='submit'] {
+    margin-right: 10px;
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+}
+
+input[type='submit']:hover {
+    cursor: pointer;
+    background-color: var(--lightly-main-color);
+}
+
+input[type='reset'] {
+    margin-right: 10px;
+    background-color: transparent;
+    border: none;
+    padding: 10px 15px;
+}
+
+input[type='reset']:hover {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
+p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+p .label {
+    flex-basis: 175px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+
+p .input, p .select, p .textarea {
+    flex-basis: 250px;
+    margin: 0;
+    padding: 5px;
+}
+
+.btn-new {
+    margin-top: 30px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+}

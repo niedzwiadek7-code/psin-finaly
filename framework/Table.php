@@ -1,9 +1,9 @@
 <?php
     interface Table
     {
-        public function getTableName();
+        public function getTableName(): string;
 
-        // @param array[array] elements ($elements[elem] = [ table, column, value_column ]
+        // @param array[array] elements ($elements[elem] = [ table, column, value_column ])
         // @param array[array] $options  ($options[elem] = [ clause, key, value? ])
 
         public function queryValue($elements, $options);
