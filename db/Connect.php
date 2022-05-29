@@ -1,7 +1,7 @@
 <?php
     class Connect {
-        private $server;
-        private $database;
+        private string $server;
+        private string $database;
 
         public function __construct($db) {
             $this->server = "DESKTOP-HHPQOE4\WINCCPLUSMIG2014";
@@ -20,7 +20,7 @@
             }
         }
 
-        public function getConnectData() {
+        public function getConnectData(): array {
             return array(
                 "Database" => $this->database,
                 "CharacterSet" => "UTF-8"
