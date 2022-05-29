@@ -1,45 +1,36 @@
 <?php
-    require_once '../../framework/Table.php';
+    require_once '../utils/Dependency.php';
+    require_once '../../framework/Table/Table.php';
     require_once '../../db/Connect.php';
 
-    class Animal implements Table
+    class Animal extends Table
     {
         private Connect $conn;
         private $join;
+        private $elements;
+        private $options;
 
-        public function __construct(Connect $conn)
+        public function __construct(Connect $conn, $join, $elements, $options)
         {
-            $this->conn = $conn;
-            $this->join = array(
-                array(
-                    "table" => "Klient",
-                    "base_key" => "IdWlasciciel",
-                    "join_key" => "IdKlient"
-                ),
-                array(
-                    "table" => "Gatunek",
-                    "base_key" => "IdGatunek",
-                    "join_key" => "IdGatunek"
-                )
-            );
+            parent::__construct($conn, $join, $elements, $options);
         }
 
         public function getTableName(): string
         {
             return "Zwierzatko";
         }
-
-        public function queryValue($elements, $options)
-        {
-            $db = $this->getTableName();
-            $query = "SELECT * FROM $db";
-        }
-
-        public function build($results) {
-            return 'elo';
-        }
-
-        public function run($query) {
-            return 'elo';
-        }
     }
+
+    $animal = new Animal(new Connect('nb8'),
+        Dependency::encodeJSON(
+            Dependency::$path . '/src/data/Animal/join.json'
+        ),
+        Dependency::encodeJSON(
+            Dependency::$path . "/src/data/Animal/elements-main.json"
+        ),
+        Dependency::encodeJSON(
+            Dependency::$path . "/src/data/Animal/options-main.json"
+        )
+    );
+
+    echo $animal->build();
