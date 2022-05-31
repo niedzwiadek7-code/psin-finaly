@@ -1,4 +1,5 @@
 <?php
+
     class Option
     {
         private string $clause;

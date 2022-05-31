@@ -12,7 +12,8 @@
         private Array $options;
         private $form;
 
-        public function __construct($db, $branch) {
+        public function __construct($db, $branch)
+        {
             $this->conn = new Connect($db);
             $this->join = Dependency::encodeJSON(
                 Dependency::$path . "/src/data/" . $this->getTableName() . "/join.json"
@@ -67,12 +68,14 @@
             $value = '<table class="table">';
             $value .= '<thead class="thead">';
             $value .= '<tr class="head-row">';
+            // Budowanie nagłówka tabeli
             foreach ($this->elements as $element) {
                 $value .= '<th class="head-cell"> <a href="/projekt4/?params=' . $element['value'] . '">' . $element['value'] . '</a></th>';
             }
             $value .= '<th></th> <th></th>';
             $value .= '</tr>';
             $value .= '</thead>';
+            // Budowanie ciała tabeli
             $value .= '<tbody class="tbody">';
             foreach ($this->run() as $row) {
                 $value .= '<tr class="body-row">';

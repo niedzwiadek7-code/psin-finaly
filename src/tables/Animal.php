@@ -5,9 +5,9 @@
     class Animal extends Table
     {
         private Connect $conn;
-        private Array $join;
-        private Array $elements;
-        private Array $options;
+        private array $join;
+        private array $elements;
+        private array $options;
 
         public function __construct($db, $branch)
         {

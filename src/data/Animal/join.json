@@ -1,0 +1,12 @@
+[
+  {
+    "table": "Klient",
+    "base_key": "IdWlasciciel",
+    "join_key": "IdKlient"
+  },
+  {
+    "table": "Gatunek",
+    "base_key": "IdGatunek",
+    "join_key": "IdGatunek"
+  }
+]
