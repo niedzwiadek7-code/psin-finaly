@@ -1,0 +1,57 @@
+{
+  "method": "get",
+  "action": "",
+  "btn-word": "Dodaj nowe zwierzątko",
+  "name-form": "zwierzątko",
+  "legend": "Dane Zwierzątka",
+  "elements": [
+    {
+      "name": "name",
+      "label": "Imię Zwierzątka",
+      "type": "text",
+      "marker": "input",
+      "options": {
+        "isRequired": true
+      }
+    },
+    {
+      "name": "type",
+      "label": "Gatunek",
+      "type": "text",
+      "marker": "select",
+      "options": {
+        "table": "Type",
+        "key": "IdGatunek",
+        "value": "NazwaGatunek",
+        "branch": "dictionary"
+      }
+    },
+    {
+      "name": "owner",
+      "label": "Właściciel",
+      "type": "text",
+      "marker": "datalist",
+      "options": {
+        "isRequired": true,
+        "table": "Client",
+        "key": "IdKlient",
+        "value": "key Imie Nazwisko",
+        "branch": "dictionary"
+      }
+    },
+    {
+      "name": "birthdate",
+      "label": "Data urodzenia",
+      "type": "date",
+      "marker": "input",
+      "options": {
+        "isRequired": true
+      }
+    },
+    {
+      "name": "notes",
+      "label": "Uwagi",
+      "marker": "textarea"
+    }
+  ]
+}

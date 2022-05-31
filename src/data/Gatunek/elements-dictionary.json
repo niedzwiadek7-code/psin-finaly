@@ -1,0 +1,14 @@
+[
+  {
+    "table": "Gatunek",
+    "type": "number",
+    "column": "IdGatunek",
+    "value": "key"
+  },
+  {
+    "table": "Gatunek",
+    "type": "string",
+    "column": "NazwaGatunek",
+    "value": "value"
+  }
+]

@@ -2,6 +2,7 @@
     require_once '../../src/utils/Dependency.php';
     require_once ROOTPATH . '/db/Connect.php';
     require_once ROOTPATH . '/framework/Table/Option.php';
+    require_once ROOTPATH . '/framework/Table/FormCreator.php';
 
     class Table
     {
@@ -9,12 +10,22 @@
         private Array $join;
         private Array $elements;
         private Array $options;
+        private $form;
 
-        public function __construct(Connect $conn, $join, $elements, $options) {
-            $this->conn = $conn;
-            $this->join = $join;
-            $this->elements = $elements;
-            $this->options = $options;
+        public function __construct($db, $branch) {
+            $this->conn = new Connect($db);
+            $this->join = Dependency::encodeJSON(
+                Dependency::$path . "/src/data/" . $this->getTableName() . "/join.json"
+            );
+            $this->elements = Dependency::encodeJSON(
+                Dependency::$path . "/src/data/" . $this->getTableName() . "/elements-" . $branch . ".json"
+            );
+            $this->options = Dependency::encodeJSON(
+                Dependency::$path . "/src/data/" . $this->getTableName() . "/options-" . $branch . ".json"
+            );
+            $this->form = Dependency::encodeJSON(
+                Dependency::$path . "/src/data/" . $this->getTableName() . "/form-" . $branch . ".json"
+            );
         }
 
         public function getTableName(): string {
@@ -46,6 +57,7 @@
         }
 
         public function run() {
+            // TODO: Try - catch implementation
             $query = $this->conn->getConnection()->prepare($this->queryValue());
             $query->execute();
             return $query->fetchAll();
@@ -75,5 +87,9 @@
             $value .= '</table>';
 
             return $value;
+        }
+
+        public function getFormCreator(): FormCreator {
+            return new FormCreator($this->form, $this->conn);
         }
     }

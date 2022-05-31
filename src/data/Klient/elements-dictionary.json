@@ -1,0 +1,20 @@
+[
+  {
+    "table": "Klient",
+    "type": "number",
+    "column": "IdKlient",
+    "value": "key"
+  },
+  {
+    "table": "Klient",
+    "type": "string",
+    "column": "Imie",
+    "value": "Imie"
+  },
+  {
+    "table": "Klient",
+    "type": "string",
+    "column": "Nazwisko",
+    "value": "Nazwisko"
+  }
+]

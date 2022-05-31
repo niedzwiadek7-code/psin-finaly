@@ -1,12 +1,4 @@
 <?php
-
-    /**
-     *
-     * clause
-     * key
-     * value
-     */
-
     class Option
     {
         private string $clause;
