@@ -35,10 +35,6 @@
             );
         }
 
-        public function __destruct() {
-            // FIXME: Zaimplementowanie funkcji zamykającej połączenie z bazą danych
-        }
-
         public function getTableName(): string {
             return "";
         }
