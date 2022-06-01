@@ -1,7 +1,14 @@
 {
   "method": "get",
   "action": "",
-  "btn-word": "Dodaj nowe zwierzątko",
+  "title": {
+    "new": "Nowe zwierzątko",
+    "edit": "Edytuj zwierzątko"
+  },
+  "btn-word": {
+    "new": "Dodaj nowe zwierzątko",
+    "edit": "Edytuj zwierzątko"
+  },
   "name-form": "zwierzątko",
   "legend": "Dane Zwierzątka",
   "elements": [

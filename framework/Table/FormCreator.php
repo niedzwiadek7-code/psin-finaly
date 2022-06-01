@@ -6,8 +6,9 @@
     {
         private string $method;
         private string $action;
-        private string $btn_word;
+        private Array $btn_word;
         private string $name_form;
+        private Array $title;
         private string $legend;
         private array $elements;
         private Connect $conn;
@@ -19,6 +20,7 @@
             $this->btn_word = $form['btn-word'];
             $this->name_form = $form['name-form'];
             $this->legend = $form['legend'];
+            $this->title = $form['title'];
             $this->elements = $form['elements'];
             $this->conn = $conn;
         }
@@ -113,16 +115,41 @@
             return '';
         }
 
-        public function build(): string {
-            $form = '<form method="' . $this->method . '" action="' . $this->action . '">';
+        private function buttonLogic(): string {
+            $logic = '<script type="text/javascript">';
+            $logic .= "const btnNew = document.querySelector('.btn-new');";
+            $logic .= "const form = document.querySelector('#form');";
+            $logic .= "form.style.display = 'none';";
+            $logic .= "btnNew.addEventListener('click', () => {";
+            $logic .= "btnNew.style.display = 'none';";
+            $logic .= "form.style.display = 'block';";
+            $logic .= "});";
+            $logic .= '</script>';
+            return $logic;
+        }
+
+        public function build(): string
+        {
+            $mode = $_SESSION['mode'];
+            $form = '<button class="btn-new" type="button">' . $this->btn_word[$mode] . '</button>';
+            $form .= '<div id="form">';
+            $form .= '<h3 class="title">' . $this->title[$mode] . '</h3>';
+            $form .= '<form method="' . $this->method . '" action="' . $this->action . '">';
             $form .= '<fieldset class="data">';
             $form .= '<legend class="legend">' . $this->legend . '</legend>';
             foreach ($this->elements as $element) {
                 $form .= $this->resolveElement($element);
             }
             $form .= '</fieldset>';
-            $form .= '<button class="btn-new" type="submit">' . $this->btn_word . '</button>';
+            $form .= '<input type="submit" value="' . $this->btn_word[$mode] . '">';
+            $form .= '<input type="reset" value="Usuń dane">';
             $form .= '</form>';
+            $form .= '</div>';
+            $form .= $this->buttonLogic();
+
+            unset($_SESSION['mode']);
+            unset($_SESSION['object']);
+
             return $form;
         }
     }

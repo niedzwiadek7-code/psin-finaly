@@ -3,6 +3,7 @@
     require_once ROOTPATH . "/db/Connect.php";
     require_once ROOTPATH . "/src/tables/Animal.php";
 
+    $_SESSION['mode'] = 'new';
     $animal = new Animal('nb8', 'main');
 ?>
 

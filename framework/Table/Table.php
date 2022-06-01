@@ -12,6 +12,12 @@
         private Array $options;
         private $form;
 
+        // TODO: zapytania do bazy danych - dodawanie + implementacja w stronie
+        // TODO: zapytania do bazy danych - usuwanie + implementacja w stronie
+        // TODO: zapytania do bazy danych - edycja + implementacja w stronie
+        // TODO: obsługa błędów - wyświetlanie błędów w formularzu
+        // TODO: zarządzanie sesją w formularzu
+
         public function __construct($db, $branch)
         {
             $this->conn = new Connect($db);
@@ -27,6 +33,10 @@
             $this->form = Dependency::encodeJSON(
                 Dependency::$path . "/src/data/" . $this->getTableName() . "/form-" . $branch . ".json"
             );
+        }
+
+        public function __destruct() {
+            // FIXME: Zaimplementowanie funkcji zamykającej połączenie z bazą danych
         }
 
         public function getTableName(): string {
@@ -58,7 +68,7 @@
         }
 
         public function run() {
-            // TODO: Try - catch implementation
+            // FIXME: Try - catch implementation
             $query = $this->conn->getConnection()->prepare($this->queryValue());
             $query->execute();
             return $query->fetchAll();
