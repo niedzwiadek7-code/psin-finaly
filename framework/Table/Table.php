@@ -3,6 +3,7 @@
     require_once ROOTPATH . '/db/Connect.php';
     require_once ROOTPATH . '/framework/Table/Option.php';
     require_once ROOTPATH . '/framework/Table/FormCreator.php';
+    require_once ROOTPATH . '/framework/Table/DataManager.php';
 
     class Table
     {
@@ -11,6 +12,7 @@
         private Array $elements;
         private Array $options;
         private $form;
+        private $query_options;
 
         // TODO: zapytania do bazy danych - dodawanie + implementacja w stronie
         // TODO: zapytania do bazy danych - usuwanie + implementacja w stronie
@@ -18,8 +20,7 @@
         // TODO: obsługa błędów - wyświetlanie błędów w formularzu
         // TODO: zarządzanie sesją w formularzu
 
-        public function __construct($db, $branch)
-        {
+        public function __construct($db, $branch, $query_options) {
             $this->conn = new Connect($db);
             $this->join = Dependency::encodeJSON(
                 Dependency::$path . "/src/data/" . $this->getTableName() . "/join.json"
@@ -33,6 +34,7 @@
             $this->form = Dependency::encodeJSON(
                 Dependency::$path . "/src/data/" . $this->getTableName() . "/form-" . $branch . ".json"
             );
+            $this->query_options = $query_options;
         }
 
         public function getTableName(): string {
@@ -56,7 +58,7 @@
             $query .= " ";
 
             foreach($this->options as $option) {
-                $option = new Option($option);
+                $option = new Option($option, $this->query_options);
                 $query .= $option->optionResolver();
             }
 
@@ -100,5 +102,24 @@
 
         public function getFormCreator(): FormCreator {
             return new FormCreator($this->form, $this->conn);
+        }
+
+        private function translateRequest(): Array {
+            $elements = $this->getFormCreator()->getElements();
+            $_SESSION['object'] = [];
+            $object = [];
+            foreach ($elements as $element) {
+                $object[$element['relatedTarget']] = $_GET[$element['name']];
+                $_SESSION['object'][$element['name']] = $_GET[$element['name']];
+            }
+            return $object;
+        }
+        
+        public function getDataManager(): DataManager {
+            if (isset($_GET['flag']) && $_GET['flag']) {
+                return new DataManager($this->conn, $this->getTableName(), $this->translateRequest());
+            }   else {
+                die('Wystąpił nieoczekiwany problem z serwerem');
+            }
         }
     }

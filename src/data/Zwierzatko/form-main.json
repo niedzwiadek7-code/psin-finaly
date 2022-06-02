@@ -17,6 +17,7 @@
       "label": "Imię Zwierzątka",
       "type": "text",
       "marker": "input",
+      "relatedTarget": "Nazwa",
       "options": {
         "isRequired": true
       }
@@ -26,6 +27,7 @@
       "label": "Gatunek",
       "type": "text",
       "marker": "select",
+      "relatedTarget": "IdGatunek",
       "options": {
         "table": "Type",
         "key": "IdGatunek",
@@ -38,6 +40,7 @@
       "label": "Właściciel",
       "type": "text",
       "marker": "datalist",
+      "relatedTarget": "IdWlasciciel",
       "options": {
         "isRequired": true,
         "table": "Client",
@@ -47,10 +50,11 @@
       }
     },
     {
-      "name": "birthdate",
+      "name": "birthday",
       "label": "Data urodzenia",
       "type": "date",
       "marker": "input",
+      "relatedTarget": "DataUrodzenia",
       "options": {
         "isRequired": true
       }
@@ -58,7 +62,8 @@
     {
       "name": "notes",
       "label": "Uwagi",
-      "marker": "textarea"
+      "marker": "textarea",
+      "relatedTarget": "Uwagi"
     }
   ]
 }

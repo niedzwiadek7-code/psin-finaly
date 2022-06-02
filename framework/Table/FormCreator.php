@@ -29,29 +29,29 @@
             $path = ROOTPATH . '/src/tables/' . $options['table'] . '.php';
             require_once $path;
 
-            $table = new $options['table']('nb8', $options['branch']);
+            $table = new $options['table']('nb8', $options['branch'], null);
             return $table->run();
         }
 
         private function resolveElement($element): string {
+            $value = '<p>';
             switch ($element['marker']) {
                 case "input": {
-                    $value = '<p>';
                     $value .= '<label for="' . $element['name'] . '">' . $element['label'] . '</label>';
                     $value .= '<input';
                     $value .= ' type="' . $element['type'] . '"';
                     $value .= ' name="' . $element['name'] . '"';
                     $value .= ' id="' . $element['name'] . '"';
                     $value .= ' class="input"';
+                    if (isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) {
+                        $value .= ' value="' . $_SESSION['object'][$element['name']] . '"';
+                    }
                     if ($element['options']['isRequired']) {
                         $value .= ' required';
                     }
                     $value .= '>';
-                    $value .= '</p>';
-                    return $value;
-                }
+                } break;
                 case "select": {
-                    $value = '<p>';
                     $value .= '<label for="' . $element['name'] . '">' . $element['label'] . '</label>';
                     $value .= '<select';
                     $value .= ' name="' . $element['name'] . '"';
@@ -60,17 +60,21 @@
                     $value .= '>';
 
                     $dictionary = $this->generateArray($element['options']);
+                    $selected = null;
+                    if (isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) {
+                        $selected = $_SESSION['object'][$element['name']];
+                    }
                     foreach ($dictionary as $word) {
-                        $value .= '<option value="' . $word['key'] . '">' . $word['value'] . '</option>';
+                        $value .= '<option value="' . $word['key'] . '" ';
+                        if ($selected == $word['key']) {
+                            $value .= 'selected';
+                        }
+                        $value .= '>' . $word['value'] . '</option>';
                     }
 
                     $value .= '</select>';
-                    $value .= '</p>';
-                    return $value;
-
-                }
+                } break;
                 case "datalist": {
-                    $value = '<p>';
                     $value .= '<label for="' . $element['name'] . '">' . $element['label'] . '</label>';
                     $value .= '<input';
                     $value .= ' list = "list-' . $element['name'] . '"';
@@ -78,6 +82,9 @@
                     $value .= ' name="' . $element['name'] . '"';
                     $value .= ' id="' . $element['name'] . '"';
                     $value .= ' class="input"';
+                    if (isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) {
+                        $value .= ' value="' . $_SESSION['object'][$element['name']] . '"';
+                    }
                     if ($element['options']['isRequired']) {
                         $value .= ' required';
                     }
@@ -97,22 +104,27 @@
                     }
 
                     $value .= '</datalist>';
-                    $value .= '</p>';
-                    return $value;
-                }
+                } break;
                 case 'textarea': {
-                    $value = '<p>';
                     $value .= '<label for="' . $element['name'] . '">' . $element['label'] . '</label>';
                     $value .= '<textarea';
                     $value .= ' name="' . $element['name'] . '"';
                     $value .= ' id="' . $element['name'] . '"';
                     $value .= ' class="textarea"';
-                    $value .= '></textarea>';
-                    $value .= '</p>';
-                    return $value;
-                }
+                    $value .= '>';
+                    if (isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) {
+                        $value .= $_SESSION['object'][$element['name']];
+                    }
+                    $value .= '</textarea>';
+                } break;
             }
-            return '';
+            $error_param = 'e_' . $element['name'];
+            if (isset($_SESSION[$error_param])) {
+                $value .= '<label for="' . $element['name'] .'" class="error">' . $_SESSION[$error_param] . '</>';
+                unset($_SESSION[$error_param]);
+            }
+            $value .= '</p>';
+            return $value;
         }
 
         private function buttonLogic(): string {
@@ -120,10 +132,12 @@
             $logic .= "const btnNew = document.querySelector('.btn-new');";
             $logic .= "const form = document.querySelector('#form');";
             $logic .= "form.style.display = 'none';";
-            $logic .= "btnNew.addEventListener('click', () => {";
+            $logic .= "const toggle = () => {";
             $logic .= "btnNew.style.display = 'none';";
             $logic .= "form.style.display = 'block';";
-            $logic .= "});";
+            $logic .= "};";
+            $logic .= "btnNew.addEventListener('click', toggle);";
+            if (isset($_GET['flag'])) $logic .= "toggle();";
             $logic .= '</script>';
             return $logic;
         }
@@ -135,6 +149,7 @@
             $form .= '<div id="form">';
             $form .= '<h3 class="title">' . $this->title[$mode] . '</h3>';
             $form .= '<form method="' . $this->method . '" action="' . $this->action . '">';
+            $form .= '<input type="hidden" name="flag" value="true">';
             $form .= '<fieldset class="data">';
             $form .= '<legend class="legend">' . $this->legend . '</legend>';
             foreach ($this->elements as $element) {
@@ -151,5 +166,9 @@
             unset($_SESSION['object']);
 
             return $form;
+        }
+
+        public function getElements() {
+            return $this->elements;
         }
     }

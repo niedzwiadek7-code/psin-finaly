@@ -1,0 +1,12 @@
+[
+  {
+    "clause": "WHERE",
+    "key": "IdGatunek",
+    "data": {
+      "value": "key"
+    },
+    "options": {
+      "character": "="
+    }
+  }
+]

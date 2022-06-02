@@ -9,9 +9,9 @@ class Client extends Table
     private Array $elements;
     private Array $options;
 
-    public function __construct($db, $branch)
+    public function __construct($db, $branch, $query_options)
     {
-        parent::__construct($db, $branch);
+        parent::__construct($db, $branch, $query_options);
     }
 
     public function getTableName(): string

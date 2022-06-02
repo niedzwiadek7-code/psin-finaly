@@ -1,0 +1,12 @@
+[
+  {
+    "clause": "WHERE",
+    "key": "IdKlient",
+    "data": {
+      "value": "key"
+    },
+    "options": {
+      "character": "="
+    }
+  }
+]

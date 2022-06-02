@@ -1,0 +1,10 @@
+{
+  "method": "get",
+  "action": "",
+  "btn-word": "Dodaj nowy gatunek",
+  "name-form": "gatunek",
+  "legend": "Dane Gatunku",
+  "elements": {
+
+  }
+}

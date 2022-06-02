@@ -1,0 +1,8 @@
+[
+  {
+    "table": "Gatunek",
+    "type": "number",
+    "column": "IdGatunek",
+    "value": "key"
+  }
+]

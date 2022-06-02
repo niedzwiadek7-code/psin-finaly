@@ -4,7 +4,12 @@
     require_once ROOTPATH . "/src/tables/Animal.php";
 
     $_SESSION['mode'] = 'new';
-    $animal = new Animal('nb8', 'main');
+    $animal = new Animal('nb8', 'main', null);
+
+    if (isset($_GET['flag'])) {
+        $animal->getDataManager();
+    }
+
 ?>
 
 <!doctype html>
@@ -22,3 +27,8 @@
     <?= $animal->getFormCreator()->build() ?>
 </body>
 </html>
+
+<?php
+    unset($_SESSION['mode']);
+    unset($_SESSION['object']);
+?>
