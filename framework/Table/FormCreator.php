@@ -43,7 +43,7 @@
                     $value .= ' name="' . $element['name'] . '"';
                     $value .= ' id="' . $element['name'] . '"';
                     $value .= ' class="input"';
-                    if (isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) {
+                    if ((isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) || ($_SESSION['mode'] === 'edit')) {
                         $value .= ' value="' . $_SESSION['object'][$element['name']] . '"';
                     }
                     if ($element['options']['isRequired']) {
@@ -61,7 +61,7 @@
 
                     $dictionary = $this->generateArray($element['options']);
                     $selected = null;
-                    if (isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) {
+                    if ((isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) || ($_SESSION['mode'] === 'edit')) {
                         $selected = $_SESSION['object'][$element['name']];
                     }
                     foreach ($dictionary as $word) {
@@ -82,7 +82,7 @@
                     $value .= ' name="' . $element['name'] . '"';
                     $value .= ' id="' . $element['name'] . '"';
                     $value .= ' class="input"';
-                    if (isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) {
+                    if ((isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) || ($_SESSION['mode'] === 'edit')) {
                         $value .= ' value="' . $_SESSION['object'][$element['name']] . '"';
                     }
                     if ($element['options']['isRequired']) {
@@ -112,7 +112,7 @@
                     $value .= ' id="' . $element['name'] . '"';
                     $value .= ' class="textarea"';
                     $value .= '>';
-                    if (isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) {
+                    if ((isset($_SESSION['object'][$element['name']]) && !isset($_SESSION['e_' . $element['name']])) || ($_SESSION['mode'] === 'edit')) {
                         $value .= $_SESSION['object'][$element['name']];
                     }
                     $value .= '</textarea>';
@@ -138,6 +138,7 @@
             $logic .= "};";
             $logic .= "btnNew.addEventListener('click', toggle);";
             if (isset($_GET['flag'])) $logic .= "toggle();";
+            if ($_GET['mode'] === 'edit') $logic .= "toggle();";
             $logic .= '</script>';
             return $logic;
         }
@@ -153,6 +154,7 @@
             $form .= '<input type="hidden" name="mode" value="' . $_GET['mode'] .'">';
             $form .= '<input type="hidden" name="stage" value="' . $_GET['stage'] .'">';
             $form .= '<input type="hidden" name="table" value="' . $_GET['table'] .'">';
+            if (isset($_GET['id'])) $form .= '<input type="hidden" name="id" value="' . $_GET['id'] .'">';
             $form .= '<fieldset class="data">';
             $form .= '<legend class="legend">' . $this->legend . '</legend>';
             foreach ($this->elements as $element) {

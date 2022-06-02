@@ -6,6 +6,7 @@
     {
         private Connect $connect;
         private string $table;
+        private string $primary;
         private Array $columns;
         private Array $object;
 
@@ -13,9 +14,11 @@
         {
             $this->connect = $connect;
             $this->table = $table;
-            $this->columns = Dependency::encodeJSON(
+            $file = Dependency::encodeJSON(
                 ROOTPATH . '/src/data/' . $table . '/columns.json'
             );
+            $this->columns = $file['columns'];
+            $this->primary = $file['primary'];
             $this->object = $object;
         }
 
@@ -127,6 +130,39 @@
             foreach ($this->columns as $key) {
                 $stmt->bindValue(':' . $key['name'], $this->object[$key['name']]);
             }
+            $stmt->execute();
+            return true;
+        }
+
+        public function update(): bool {
+            if (!$this->validate()) {
+                return false;
+            }
+
+            $sql = 'UPDATE ' . $this->table . ' SET ';
+            foreach ($this->columns as $property) {
+                $sql .= $property['name'] . ' = :' . $property['name'] . ', ';
+            }
+            $sql = substr($sql, 0, -2);
+            $sql .= ' WHERE ';
+            $sql .= $this->primary . ' = :' . $this->primary;
+            $stmt = $this->connect->getConnection()->prepare($sql);
+            foreach ($this->columns as $key) {
+                $stmt->bindValue(':' . $key['name'], $this->object[$key['name']]);
+            }
+            $stmt->bindValue(':' . $this->primary, $_GET['id']);
+            $stmt->execute();
+            return true;
+        }
+
+        public static function delete($table, $connect): bool {
+            $primary = Dependency::encodeJSON(
+                ROOTPATH . '/src/data/' . $table . '/columns.json'
+            )['primary'];
+            $sql = 'DELETE FROM ' . $table . ' WHERE ';
+            $sql .= $primary . ' = :' . $primary;
+            $stmt = $connect->getConnection()->prepare($sql);
+            $stmt->bindValue(':' . $primary, $_GET['id']);
             $stmt->execute();
             return true;
         }

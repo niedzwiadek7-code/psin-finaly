@@ -1,0 +1,69 @@
+{
+  "method": "get",
+  "action": "",
+  "title": {
+    "new": "Nowe zwierzątko",
+    "edit": "Edytuj zwierzątko"
+  },
+  "btn-word": {
+    "new": "Dodaj nowe zwierzątko",
+    "edit": "Edytuj zwierzątko"
+  },
+  "name-form": "zwierzątko",
+  "legend": "Dane Zwierzątka",
+  "elements": [
+    {
+      "name": "name",
+      "label": "Imię Zwierzątka",
+      "type": "text",
+      "marker": "input",
+      "relatedTarget": "Nazwa",
+      "options": {
+        "isRequired": true
+      }
+    },
+    {
+      "name": "type",
+      "label": "Gatunek",
+      "type": "text",
+      "marker": "select",
+      "relatedTarget": "IdGatunek",
+      "options": {
+        "table": "Type",
+        "key": "IdGatunek",
+        "value": "NazwaGatunek",
+        "branch": "dictionary"
+      }
+    },
+    {
+      "name": "owner",
+      "label": "Właściciel",
+      "type": "text",
+      "marker": "datalist",
+      "relatedTarget": "IdWlasciciel",
+      "options": {
+        "isRequired": true,
+        "table": "Client",
+        "key": "IdKlient",
+        "value": "key Imie Nazwisko",
+        "branch": "dictionary"
+      }
+    },
+    {
+      "name": "birthday",
+      "label": "Data urodzenia",
+      "type": "date",
+      "marker": "input",
+      "relatedTarget": "DataUrodzenia",
+      "options": {
+        "isRequired": true
+      }
+    },
+    {
+      "name": "notes",
+      "label": "Uwagi",
+      "marker": "textarea",
+      "relatedTarget": "Uwagi"
+    }
+  ]
+}

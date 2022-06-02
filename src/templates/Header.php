@@ -12,6 +12,7 @@ class Header
                     <title> ' . $table . '</title>
                     <link rel="stylesheet" href="/public/styles/table.css">
                     <link rel="stylesheet" href="/public/styles/form.css">
+                    <link rel="stylesheet" href="/public/styles/information.css">
                 </head>
                 <body>';
     }

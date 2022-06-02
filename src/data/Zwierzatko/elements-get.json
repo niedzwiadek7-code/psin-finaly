@@ -1,0 +1,32 @@
+[
+  {
+    "table": "Zwierzatko",
+    "type": "string",
+    "column": "Nazwa",
+    "value": "name"
+  },
+  {
+    "table": "Zwierzatko",
+    "type": "number",
+    "column": "IdGatunek",
+    "value": "type"
+  },
+  {
+    "table": "Zwierzatko",
+    "type": "date",
+    "column": "DataUrodzenia",
+    "value": "birthday"
+  },
+  {
+    "table": "Zwierzatko",
+    "type": "number",
+    "column": "IdWlasciciel",
+    "value": "owner"
+  },
+  {
+    "table": "Zwierzatko",
+    "type": "string",
+    "column": "Uwagi",
+    "value": "notes"
+  }
+]

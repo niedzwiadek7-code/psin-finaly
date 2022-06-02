@@ -14,12 +14,6 @@
         private $form;
         private $query_options;
 
-        // TODO: zapytania do bazy danych - dodawanie + implementacja w stronie
-        // TODO: zapytania do bazy danych - usuwanie + implementacja w stronie
-        // TODO: zapytania do bazy danych - edycja + implementacja w stronie
-        // TODO: obsługa błędów - wyświetlanie błędów w formularzu
-        // TODO: zarządzanie sesją w formularzu
-
         public function __construct($db, $branch, $query_options) {
             $this->conn = new Connect($db);
             $this->join = Dependency::encodeJSON(
@@ -90,8 +84,8 @@
                 foreach ($this->elements as $element) {
                     $value .= '<td class="cell">' . $row[$element['value']] . '</td>';
                 }
-                $value .= '<td><a class="btn-edit" href="edit.php/?id='.$row[0].'"> Edytuj </a> </td>';
-                $value .= '<td><a class="btn-delete" href="delete.php/?id='.$row[0].'"> Usuń </a> </td>';
+                $value .= '<td><a class="btn-edit" href="/psin-finaly/public/tables/generate.php?mode=edit&stage=during&table=' . $_GET['table'] . '&id=' .$row[0].'"> Edytuj </a> </td>';
+                $value .= '<td><a class="btn-delete" href="/psin-finaly/public/tables/generate.php?mode=delete&stage=during&table=' . $_GET['table'] . '&id='.$row[0].'"> Usuń </a> </td>';
                 $value .= '</tr>';
             }
             $value .= '</tbody>';
@@ -121,5 +115,9 @@
             }   else {
                 die('Wystąpił nieoczekiwany problem z serwerem');
             }
+        }
+
+        public function getConnection(): Connect {
+            return $this->conn;
         }
     }

@@ -1,0 +1,39 @@
+.back-to-main {
+    background-color: blue;
+    border: none;
+    margin-right: 10px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+.confirm-delete {
+    background-color: red;
+    border: none;
+    margin-right: 10px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+.success .info-success {
+    padding: 5px 5px 5px 15px;
+    font-size: 1.1em;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: lightgreen;
+}
+
+.delete .info-delete {
+    padding: 5px 5px 5px 15px;
+    font-size: 1.1em;
+    border: 1px solid red;
+    border-radius: 5px;
+    background-color: lightcoral;
+}

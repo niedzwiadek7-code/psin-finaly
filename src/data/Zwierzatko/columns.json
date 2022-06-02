@@ -1,46 +1,49 @@
-[
-    {
-        "name": "Nazwa",
-        "type": "string",
-        "form_name": "name",
-        "validation": {
-            "required": true,
-            "minLength": 3
-        }
-    },
-    {
-        "name": "IdWlasciciel",
-        "type": "number",
-        "form_name": "owner",
-        "validation": {
-            "required": true,
-            "relatedTarget": "Client"
-        }
-    },
-    {
-        "name": "IdGatunek",
-        "type": "number",
-        "form_name": "type",
-        "validation": {
-            "required": true,
-            "relatedTarget": "Type"
-        }
-    },
-    {
-        "name": "DataUrodzenia",
-        "type": "date",
-        "form_name": "birthday",
-        "validation": {
-            "required": true,
-            "range": "before"
-        }
-    },
-    {
-        "name": "Uwagi",
-        "type": "string",
-        "form_name": "notes",
-        "validation": {
+{
+    "primary": "IdZwierzatko",
+    "columns": [
+        {
+            "name": "Nazwa",
+            "type": "string",
+            "form_name": "name",
+            "validation": {
+                "required": true,
+                "minLength": 3
+            }
+        },
+        {
+            "name": "IdWlasciciel",
+            "type": "number",
+            "form_name": "owner",
+            "validation": {
+                "required": true,
+                "relatedTarget": "Client"
+            }
+        },
+        {
+            "name": "IdGatunek",
+            "type": "number",
+            "form_name": "type",
+            "validation": {
+                "required": true,
+                "relatedTarget": "Type"
+            }
+        },
+        {
+            "name": "DataUrodzenia",
+            "type": "date",
+            "form_name": "birthday",
+            "validation": {
+                "required": true,
+                "range": "before"
+            }
+        },
+        {
+            "name": "Uwagi",
+            "type": "string",
+            "form_name": "notes",
+            "validation": {
 
+            }
         }
-    }
-]
+    ]
+}
