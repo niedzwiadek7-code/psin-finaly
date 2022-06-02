@@ -150,6 +150,9 @@
             $form .= '<h3 class="title">' . $this->title[$mode] . '</h3>';
             $form .= '<form method="' . $this->method . '" action="' . $this->action . '">';
             $form .= '<input type="hidden" name="flag" value="true">';
+            $form .= '<input type="hidden" name="mode" value="' . $_GET['mode'] .'">';
+            $form .= '<input type="hidden" name="stage" value="' . $_GET['stage'] .'">';
+            $form .= '<input type="hidden" name="table" value="' . $_GET['table'] .'">';
             $form .= '<fieldset class="data">';
             $form .= '<legend class="legend">' . $this->legend . '</legend>';
             foreach ($this->elements as $element) {

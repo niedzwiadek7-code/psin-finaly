@@ -17,7 +17,6 @@
                 ROOTPATH . '/src/data/' . $table . '/columns.json'
             );
             $this->object = $object;
-            $this->insert();
         }
 
         public function validateProperty($column): bool {
