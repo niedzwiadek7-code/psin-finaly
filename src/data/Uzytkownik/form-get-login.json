@@ -1,0 +1,33 @@
+{
+  "method": "post",
+  "action": "/psin-finaly/public/user/verification.php",
+  "title": {
+    "login": "Zaloguj się do systemu"
+  },
+  "btn-word": {
+    "login": "Zaloguj się"
+  },
+  "legend": "Dane uzytkownika",
+  "elements": [
+    {
+      "name": "email",
+      "label": "Adres email",
+      "type": "email",
+      "marker": "input",
+      "relatedTarget": "Email",
+      "options": {
+        "isRequired": true
+      }
+    },
+    {
+      "name": "password",
+      "label": "Hasło",
+      "type": "password",
+      "marker": "input",
+      "relatedTarget": "Haslo",
+      "options": {
+         "isRequired": true
+      }
+    }
+  ]
+}

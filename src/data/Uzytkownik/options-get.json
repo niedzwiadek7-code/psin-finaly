@@ -1,0 +1,12 @@
+[
+  {
+    "clause": "WHERE",
+    "key": "Email",
+    "data": {
+      "value": "email"
+    },
+    "options": {
+      "character": "="
+    }
+  }
+]

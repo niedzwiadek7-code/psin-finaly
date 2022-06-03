@@ -1,0 +1,28 @@
+body {
+    margin-bottom: 30px;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #fff;
+    padding: 5px 25px;
+    width: 95%;
+    height: 50px;
+}
+
+.header .button {
+    margin-top: 30px;
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+    text-decoration: none;
+}

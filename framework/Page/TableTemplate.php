@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\Pure;
-
 require_once ROOTPATH . "/db/Connect.php";
     require_once ROOTPATH . "/framework/Table/DataManager.php";
     require_once ROOTPATH . "/src/tables/" . $_GET['table'] . ".php";
@@ -85,34 +83,38 @@ require_once ROOTPATH . "/db/Connect.php";
         }
 
         private function newDuringMode(): string {
+//            $page = Information::generateCRUDInfo();
             $page = $this->table->build();
             $page .= $this->table->getFormCreator()->build();
             return $page;
         }
 
         private function newSuccessMode(): string {
-            return Information::generateInformation('success', 'Dodano nowy rekord');
+            return Information::generateTableInformation('success', 'Dodano nowy rekord');
         }
 
         private function editDuringMode(): string {
-            // TODO: Try - catch implementation
-            $table_get = new $_GET['table'](DATABASE, 'get', array(
-                "key" => $_GET['id']
-            ));
-            $_SESSION['object'] = $table_get->run()[0];
-            return $this->table->getFormCreator()->build();
+            try {
+                $table_get = new $_GET['table'](DATABASE, 'get', array(
+                    "key" => $_GET['id']
+                ));
+                $_SESSION['object'] = $table_get->run()[0];
+                return $this->table->getFormCreator()->build();
+            }   catch (Exception $e) {
+                return Information::generateTableInformation('error', $e->getMessage());
+            }
         }
 
         private function editSuccessMode(): string {
-            return Information::generateInformation('success', 'Zaktualizowano rekord o id: ' . $_GET['id']);
+            return Information::generateTableInformation('success', 'Zaktualizowano rekord o id: ' . $_GET['id']);
         }
 
         private function deleteDuringMode(): string {
-            return Information::generateInformation('delete', 'Czy na pewno chcesz usunąć rekord o id: ' . $_GET['id']);
+            return Information::generateTableInformation('delete', 'Czy na pewno chcesz usunąć rekord o id: ' . $_GET['id']);
         }
 
         private function deleteSuccessMode(): string {
             DataManager::delete($this->table->getTableName(), $this->table->getConnection());
-            return Information::generateInformation('success', 'Usunięto rekord o id: ' . $_GET['id']);
+            return Information::generateTableInformation('success', 'Usunięto rekord o id: ' . $_GET['id']);
         }
     }

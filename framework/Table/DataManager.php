@@ -122,16 +122,24 @@
                 return false;
             }
 
-            $sql = 'INSERT INTO ' . $this->table . ' (';
-            $sql .= implode(', ', array_map('getName', $this->columns)) . ')';
-            $sql .= ' VALUES (';
-            $sql .= ':' . implode(', :', array_map('getName', $this->columns)) . ')';
-            $stmt = $this->connect->getConnection()->prepare($sql);
-            foreach ($this->columns as $key) {
-                $stmt->bindValue(':' . $key['name'], $this->object[$key['name']]);
+            try {
+                $sql = 'INSERT INTO ' . $this->table . ' (';
+                $sql .= implode(', ', array_map('getName', $this->columns)) . ')';
+                $sql .= ' VALUES (';
+                $sql .= ':' . implode(', :', array_map('getName', $this->columns)) . ')';
+                $stmt = $this->connect->getConnection()->prepare($sql);
+                foreach ($this->columns as $key) {
+                    $stmt->bindValue(':' . $key['name'], $this->object[$key['name']]);
+                }
+                $stmt->execute();
+                $_SESSION['insert'] += 1;
+                return true;
+            }   catch (Exception $e) {
+                echo $e->getMessage();
+                return false;
             }
-            $stmt->execute();
-            return true;
+
+
         }
 
         public function update(): bool {
@@ -139,31 +147,44 @@
                 return false;
             }
 
-            $sql = 'UPDATE ' . $this->table . ' SET ';
-            foreach ($this->columns as $property) {
-                $sql .= $property['name'] . ' = :' . $property['name'] . ', ';
+            try {
+                $sql = 'UPDATE ' . $this->table . ' SET ';
+                foreach ($this->columns as $property) {
+                    $sql .= $property['name'] . ' = :' . $property['name'] . ', ';
+                }
+                $sql = substr($sql, 0, -2);
+                $sql .= ' WHERE ';
+                $sql .= $this->primary . ' = :' . $this->primary;
+                $stmt = $this->connect->getConnection()->prepare($sql);
+                foreach ($this->columns as $key) {
+                    $stmt->bindValue(':' . $key['name'], $this->object[$key['name']]);
+                }
+                $stmt->bindValue(':' . $this->primary, $_GET['id']);
+                $stmt->execute();
+                $_SESSION['update'] += 1;
+                return true;
+            }   catch (Exception $e) {
+                echo $e->getMessage();
+                return false;
             }
-            $sql = substr($sql, 0, -2);
-            $sql .= ' WHERE ';
-            $sql .= $this->primary . ' = :' . $this->primary;
-            $stmt = $this->connect->getConnection()->prepare($sql);
-            foreach ($this->columns as $key) {
-                $stmt->bindValue(':' . $key['name'], $this->object[$key['name']]);
-            }
-            $stmt->bindValue(':' . $this->primary, $_GET['id']);
-            $stmt->execute();
-            return true;
+
         }
 
         public static function delete($table, $connect): bool {
-            $primary = Dependency::encodeJSON(
-                ROOTPATH . '/src/data/' . $table . '/columns.json'
-            )['primary'];
-            $sql = 'DELETE FROM ' . $table . ' WHERE ';
-            $sql .= $primary . ' = :' . $primary;
-            $stmt = $connect->getConnection()->prepare($sql);
-            $stmt->bindValue(':' . $primary, $_GET['id']);
-            $stmt->execute();
-            return true;
+            try {
+                $primary = Dependency::encodeJSON(
+                    ROOTPATH . '/src/data/' . $table . '/columns.json'
+                )['primary'];
+                $sql = 'DELETE FROM ' . $table . ' WHERE ';
+                $sql .= $primary . ' = :' . $primary;
+                $stmt = $connect->getConnection()->prepare($sql);
+                $stmt->bindValue(':' . $primary, $_GET['id']);
+                $stmt->execute();
+                $_SESSION['delete'] += 1;
+                return true;
+            }   catch (Exception $e) {
+                echo $e->getMessage();
+                return false;
+            }
         }
     }

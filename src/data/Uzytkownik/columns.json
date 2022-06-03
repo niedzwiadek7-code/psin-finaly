@@ -1,0 +1,56 @@
+{
+    "primary": "IdUzytkownik",
+    "columns": [
+        {
+            "name": "Imie",
+            "type": "string",
+            "form_name": "firstname",
+            "validation": {
+                "required": true,
+                "minLength": 3
+            }
+        },
+        {
+            "name": "Nazwisko",
+            "type": "string",
+            "form_name": "lastname",
+            "validation": {
+               "required": true,
+                 "minLength": 3
+               }
+            },
+        {
+            "name": "Email",
+            "type": "email",
+            "form_name": "email",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "name": "Haslo",
+            "type": "passowrd",
+            "form_name": "password",
+            "validation": {
+                "required": true,
+            }
+        },
+        {
+            "name": "Rola",
+            "type": "number",
+            "form_name": "rule",
+            "validation": {
+                "required": true,
+                "relatedTarget": "Rule"
+            }
+        },
+        {
+            "name": "KluczWBazie",
+            "type": "number",
+            "form_name": "databaseKey",
+            "validation": {
+                "required": "false"
+            }
+        }
+    ]
+}

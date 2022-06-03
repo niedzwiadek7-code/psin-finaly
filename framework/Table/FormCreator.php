@@ -7,7 +7,6 @@
         private string $method;
         private string $action;
         private Array $btn_word;
-        private string $name_form;
         private Array $title;
         private string $legend;
         private array $elements;
@@ -18,7 +17,6 @@
             $this->method = $form['method'];
             $this->action = $form['action'];
             $this->btn_word = $form['btn-word'];
-            $this->name_form = $form['name-form'];
             $this->legend = $form['legend'];
             $this->title = $form['title'];
             $this->elements = $form['elements'];
@@ -138,7 +136,8 @@
             $logic .= "};";
             $logic .= "btnNew.addEventListener('click', toggle);";
             if (isset($_GET['flag'])) $logic .= "toggle();";
-            if ($_GET['mode'] === 'edit') $logic .= "toggle();";
+            if (isset($_GET['mode']) && $_GET['mode'] === 'edit') $logic .= "toggle();";
+            if (isset($_SESSION['mode']) && $_SESSION['mode'] === 'login') $logic .= "toggle();";
             $logic .= '</script>';
             return $logic;
         }
@@ -151,9 +150,9 @@
             $form .= '<h3 class="title">' . $this->title[$mode] . '</h3>';
             $form .= '<form method="' . $this->method . '" action="' . $this->action . '">';
             $form .= '<input type="hidden" name="flag" value="true">';
-            $form .= '<input type="hidden" name="mode" value="' . $_GET['mode'] .'">';
-            $form .= '<input type="hidden" name="stage" value="' . $_GET['stage'] .'">';
-            $form .= '<input type="hidden" name="table" value="' . $_GET['table'] .'">';
+            if(isset($_GET['mode'])) $form .= '<input type="hidden" name="mode" value="' . $_GET['mode'] .'">';
+            if(isset($_GET['mode'])) $form .= '<input type="hidden" name="stage" value="' . $_GET['stage'] .'">';
+            if(isset($_GET['mode'])) $form .= '<input type="hidden" name="table" value="' . $_GET['table'] .'">';
             if (isset($_GET['id'])) $form .= '<input type="hidden" name="id" value="' . $_GET['id'] .'">';
             $form .= '<fieldset class="data">';
             $form .= '<legend class="legend">' . $this->legend . '</legend>';

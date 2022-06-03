@@ -1,0 +1,7 @@
+[
+  {
+    "table": "Rola",
+    "base_key": "Rola",
+    "join_key": "IdRola"
+  }
+]

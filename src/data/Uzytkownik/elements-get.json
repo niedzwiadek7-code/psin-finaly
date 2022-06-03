@@ -1,0 +1,26 @@
+[
+  {
+    "table": "Uzytkownik",
+    "type": "string",
+    "column": "Imie",
+    "value": "firstname"
+  },
+  {
+    "table": "Uzytkownik",
+    "type": "string",
+    "column": "Nazwisko",
+    "value": "lastname"
+  },
+  {
+    "table": "Uzytkownik",
+    "type": "number",
+    "column": "Rola",
+    "value": "rule"
+  },
+  {
+    "table": "Uzytkownik",
+    "type": "date",
+    "column": "DataRejestracji",
+    "value": "registerdate"
+  }
+]

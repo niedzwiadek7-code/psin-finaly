@@ -60,10 +60,15 @@
         }
 
         public function run() {
-            // FIXME: Try - catch implementation
-            $query = $this->conn->getConnection()->prepare($this->queryValue());
-            $query->execute();
-            return $query->fetchAll();
+            try {
+                $query = $this->conn->getConnection()->prepare($this->queryValue());
+                $query->execute();
+                if (!isset($_SESSION['select'])) $_SESSION['select'] = 0;
+                $_SESSION['select'] += 1;
+                return $query->fetchAll();
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
         }
 
         public function build(): string {

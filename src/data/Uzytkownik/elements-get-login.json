@@ -1,0 +1,14 @@
+[
+  {
+    "table": "Uzytkownik",
+    "type": "string",
+    "column": "Email",
+    "value": "email"
+  },
+  {
+    "table": "Uzytkownik",
+    "type": "string",
+    "column": "Haslo",
+    "value": "password"
+  }
+]

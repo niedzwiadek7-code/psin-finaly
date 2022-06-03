@@ -77,6 +77,13 @@ p .input, p .select, p .textarea {
     padding: 5px;
 }
 
+p .error {
+    width: 100%;
+    padding-top: 5px;
+    text-align: right;
+    color: red;
+}
+
 .btn-new {
     margin-top: 30px;
     background-color: green;
